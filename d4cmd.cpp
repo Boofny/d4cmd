@@ -11,6 +11,10 @@ int main() {
         std::cout << fs::current_path() << '\n';
         std::getline(std::cin, command);
 
+        for (char& c : command) {
+            c = tolower(c);
+        }
+
         if (command == "quit") break;
 
     }

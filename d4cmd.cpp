@@ -24,7 +24,18 @@ int main() {
         std::string commandName = command.substr(0, whitespacePosition);
         std::string instruction = command.substr(whitespacePosition + 1);
 
-        
+        if (commandName == "mkdir") {
+            std::string append = path + "\\" + instruction;
+            try {
+                fs::create_directory(append);
+
+                std::cout << instruction << " created successfully.\n";
+            } catch (const fs::filesystem_error& e) {
+                std::cerr << "Error creating " << instruction << ": " << e.what() << '\n';
+            }
+        }
+
+
     }
     return 0;
 }

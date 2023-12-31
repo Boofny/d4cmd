@@ -27,7 +27,13 @@ int main() {
             fs::path newPath;
             if (instruction == "..") {
                 newPath = fs::current_path().parent_path();
-                fs::current_path(newPath);    
+                try {
+                    if (fs::exists(newPath) && fs::is_directory(newPath)) {
+                        fs::current_path(newPath);
+                    }
+                } catch (fs::filesystem_error& e) {
+                    std::cerr << "Directory not found or not valid directory: " << e.what() << '\n';
+                }
             }
 
             newPath = currentDirectory / instruction;

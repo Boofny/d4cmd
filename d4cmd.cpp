@@ -24,8 +24,13 @@ int main() {
         std::string instruction = command.substr(whitespacePosition + 1);
 
         if (commandName == "cd") {
-            fs::path newPath = currentDirectory / instruction;
-            
+            fs::path newPath;
+            if (instruction == "..") {
+                //newPath = fs::current_path().parent_path();
+                //fs::current_path(newPath);    
+            }
+
+            newPath = currentDirectory / instruction;
             try {
                 if (fs::exists(newPath) && fs::is_directory(newPath)) {
                     fs::current_path(newPath);

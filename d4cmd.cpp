@@ -6,12 +6,11 @@ namespace fs = std::filesystem;
 
 int main() {
     std::string command;
-    std::string path = "";
 
     while (true) {
-        path = fs::current_path().string();
-        
-        beginning:std::cout << path << ">";
+        fs::path currentDirectory = fs::current_path();
+
+        beginning:std::cout << fs::current_path() << ">";
         std::getline(std::cin, command);
 
         for (char& c : command) {
@@ -24,8 +23,21 @@ int main() {
         std::string commandName = command.substr(0, whitespacePosition);
         std::string instruction = command.substr(whitespacePosition + 1);
 
+        if (commandName == "cd") {
+            fs::path newPath = currentDirectory / instruction;
+            
+            try {
+                if (fs::exists(newPath) && fs::is_directory(newPath)) {
+                    fs::current_path(newPath);
+                }
+            } catch (const fs::filesystem_error& e) {
+                std::cerr << "Directory not found or not valid directory: " << e.what() << '\n';
+            }
+        }
+
         if (commandName == "mkdir") {
-            std::string append = path + "\\" + instruction;
+            std::string currentPath = fs::current_path().string();
+            std::string append = currentPath + "\\" + instruction;
             try {
                 fs::create_directory(append);
 
@@ -34,8 +46,7 @@ int main() {
                 std::cerr << "Error creating " << instruction << ": " << e.what() << '\n';
             }
         }
-
-
     }
+    
     return 0;
 }

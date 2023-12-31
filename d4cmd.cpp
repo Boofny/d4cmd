@@ -26,8 +26,8 @@ int main() {
         if (commandName == "cd") {
             fs::path newPath;
             if (instruction == "..") {
-                //newPath = fs::current_path().parent_path();
-                //fs::current_path(newPath);    
+                newPath = fs::current_path().parent_path();
+                fs::current_path(newPath);    
             }
 
             newPath = currentDirectory / instruction;

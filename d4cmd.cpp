@@ -1,5 +1,6 @@
 #include <iostream>
 #include <filesystem>
+#include <fstream>
 #include <string>
 
 namespace fs = std::filesystem;
@@ -46,6 +47,17 @@ int main() {
             }
         }
 
+        if (commandName == "mkfile") {
+            std::ofstream file(instruction);
+
+            if (file.is_open()) {
+                std::cout << "File successfully created.\n";
+                file.close();
+            } else {
+                std::cerr << "Error creating file: " << instruction << '\n';
+            }
+        }
+
         if (commandName == "mkdir") {
             std::string currentPath = fs::current_path().string();
             std::string append = currentPath + "\\" + instruction;
@@ -58,6 +70,6 @@ int main() {
             }
         }
     }
-    
+
     return 0;
 }

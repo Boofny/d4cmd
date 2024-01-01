@@ -11,7 +11,7 @@ int main() {
     while (true) {
         fs::path currentDirectory = fs::current_path();
 
-        beginning:std::cout << fs::current_path() << ">";
+        std::cout << fs::current_path() << ">";
         std::getline(std::cin, command);
 
         for (char& c : command) {

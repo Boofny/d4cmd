@@ -82,6 +82,16 @@ int main() {
         if (command == "cls") {
             std::system(command.c_str());
         }
+
+        if (command == "dir") {
+            try {
+                for(const auto& entry : fs::directory_iterator(fs::current_path())) {
+                    std::cout << entry.path().filename() << '\n';
+                }
+            } catch (const fs::filesystem_error& e) {
+                std::cout << "Error accessing directory: " << e.what() << '\n';
+            }
+        }
     }
 
     return 0;

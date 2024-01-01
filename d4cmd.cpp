@@ -78,6 +78,10 @@ int main() {
         if (commandName == "echo") {
             std::cout << instruction << '\n';
         }
+
+        if (command == "cls") {
+            std::system(command.c_str());
+        }
     }
 
     return 0;

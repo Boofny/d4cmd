@@ -69,6 +69,11 @@ int main() {
                 std::cerr << "Error creating " << instruction << ": " << e.what() << '\n';
             }
         }
+
+        if (commandName == "start") {
+            std::string openCommand = commandName + " " + instruction;
+            std::system(openCommand.c_str());
+        }
     }
 
     return 0;

@@ -74,6 +74,10 @@ int main() {
             std::string openCommand = commandName + " " + instruction;
             std::system(openCommand.c_str());
         }
+
+        if (commandName == "echo") {
+            std::cout << instruction << '\n';
+        }
     }
 
     return 0;

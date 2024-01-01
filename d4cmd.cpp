@@ -14,10 +14,6 @@ int main() {
         std::cout << fs::current_path() << ">";
         std::getline(std::cin, command);
 
-        for (char& c : command) {
-            c = tolower(c);
-        }
-
         if (command == "quit") break;
 
         std::size_t whitespacePosition = command.find(" ");
@@ -90,6 +86,23 @@ int main() {
                 }
             } catch (const fs::filesystem_error& e) {
                 std::cout << "Error accessing directory: " << e.what() << '\n';
+            }
+        }
+
+        if (commandName == "writeto") {
+            std::string messagePosition = command.substr(command.find(" ", whitespacePosition + 1));
+            messagePosition = messagePosition.substr(1);
+            std::string fileName = instruction.substr(0, whitespacePosition + 1);
+            
+            std::ofstream file(fileName);
+
+            if (file.is_open()) {
+                file << messagePosition << '\n';
+
+                file.close();
+                std::cout << "Data successfully written to file.\n";
+            } else {
+                std::cerr << "Trouble opening file: " << fileName << '\n';
             }
         }
     }

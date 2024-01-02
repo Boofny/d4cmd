@@ -93,8 +93,6 @@ int main() {
             std::string messagePosition = command.substr(command.find(" ", whitespacePosition + 1));
             messagePosition = messagePosition.substr(1);
             std::string fileName = instruction.substr(0, whitespacePosition + 1);
-
-            std::cout << messagePosition << '\n';
             
             std::ofstream file(fileName, std::ios::app);
 

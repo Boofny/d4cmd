@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include <cstdio>
 
 namespace fs = std::filesystem;
 
@@ -45,7 +46,7 @@ int main() {
 
         if (commandName == "mkfile") {
             std::ofstream file(instruction);
-
+            
             if (file.is_open()) {
                 std::cout << "File successfully created.\n";
                 file.close();
@@ -103,6 +104,14 @@ int main() {
                 std::cout << "Data successfully written to file.\n";
             } else {
                 std::cerr << "Trouble opening file: " << fileName << '\n';
+            }
+        }
+
+        if (commandName == "delete") {
+            if (std::remove(instruction.c_str()) == 0) {
+                std::cout << instruction << " deleted successfully.\n";
+            } else {
+                std::cerr << "Trouble deleting file: " << instruction << '\n';
             }
         }
     }

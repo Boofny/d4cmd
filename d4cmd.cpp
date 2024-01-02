@@ -114,6 +114,29 @@ int main() {
                 std::cerr << "Trouble deleting file: " << instruction << '\n';
             }
         }
+
+        if (commandName == "copy") {
+            std::size_t position = instruction.find(" ");
+            std::string destinationOfFile = instruction.substr(0, position);
+            std::string destinationToCopyFile = instruction.substr(position + 1);
+
+
+            std::size_t lastBackslashPosition = destinationOfFile.find_last_of("\\");
+            std::string fileName = destinationOfFile.substr(lastBackslashPosition + 1);
+            std::size_t dotPosition = fileName.find_last_of(".");
+            fileName.insert(dotPosition, "_copy");
+
+            try {
+                fs::path pathToCopy = destinationOfFile;
+                fs::path pathToCopyTo = destinationToCopyFile;
+
+                fs::copy(pathToCopy, pathToCopyTo / fileName, fs::copy_options::recursive);
+
+                std::cout << "File copied successfully.\n";
+            } catch (const fs::filesystem_error& e) {
+                std::cout << "Trouble copying file: " << e.what() << '\n';
+            }
+        }
     }
 
     return 0;
